@@ -35,7 +35,7 @@ const Div = styled.div`
   }
 `;
 
-export const Categories = () => {
+ const Categories = () => {
    const auth = useAuth()
     const navigate = useNavigate()
 
@@ -65,3 +65,4 @@ export const Categories = () => {
     </Div>
   );
 };
+export default Categories

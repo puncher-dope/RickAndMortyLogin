@@ -6,7 +6,7 @@ export const AuthStatus = () => {
     const auth = useAuth()
     const navigate = useNavigate()
 
-    if(auth.user === null){
+    if(JSON.stringify(auth.user) === null){
         return <p>U are not logIn</p>
     }
 
@@ -18,7 +18,7 @@ export const AuthStatus = () => {
 
 return (
        <p>
-         Welcome user {auth.user}
+         Welcome user {JSON.stringify(auth.user)}
          <button onClick={handleSignOut}>Sign Out</button>
        </p>
   );

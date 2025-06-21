@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useFetch } from "../hooks";
+import { useSearchCharacters } from "../hooks";
 import { EpisodeCard } from "./components";
 import { formatDate } from "../utils";
 
@@ -11,8 +11,12 @@ import { formatDate } from "../utils";
     justify-content: space-around;
     gap: 10px;
   `;
-export const Episode = () => {
-  const { data, error } = useFetch("http://localhost:3000/episode");
+ const Episode = () => {
+  const { error, data } = useSearchCharacters(
+    '',
+    1,
+    "https://rickandmortyapi.com/api/location"
+  );
 
   return (
     <>
@@ -32,3 +36,6 @@ export const Episode = () => {
     </>
   );
 };
+
+
+export default Episode

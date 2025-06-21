@@ -24,7 +24,7 @@ const SignInContainer = ({
           <Input
             iconId={iconId}
             type={"email"}
-            name={"username"}
+            name={"username"} // Исправлено с "email" на "username"
             placeholder={"Your email"}
             margin="margin: 0 0 0 10px"
           />

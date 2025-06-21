@@ -4,10 +4,13 @@ import { useAuth } from "../AuthProvider";
 export const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   const location = useLocation();
-  console.log('####: location', location);
 
-  if (auth.user === null) {
-    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+  if (JSON.stringify(auth.user) === null) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
+  if (typeof auth.user !== 'string') {
+  return <Navigate to="/login" state={{ from: location }} replace />;
+}
+  
   return children;
 };

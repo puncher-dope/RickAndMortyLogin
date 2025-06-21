@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const Login = () => {
+ const Login = () => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -17,11 +17,11 @@ export const Login = () => {
     rePassword: "",
   });
 
-  const location = useLocation()
+  const location = useLocation();
   const formRef = useRef(null);
-  const auth = useAuth()
-  const navigate = useNavigate()
-  const from = location.state?.from || '/'
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
 
   const validatePassword = () => {
     if (register.password !== register.rePassword) {
@@ -34,20 +34,17 @@ export const Login = () => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (!validatePassword()) {
+    const formData = new FormData(event.currentTarget);
+    const username = formData.get("username");
+
+    if (!username) {
+      alert("Please enter your email");
       return;
     }
-    const formData = new FormData(event.currentTarget);
 
-    const username = formData.get("username");
-    console.log("####: username", username);
-    console.log('####: inputs', inputs);
-    auth.signIn(username, () => {
-      navigate(from, {
-        replace: true,
-      });
+    auth.signIn(String(username), () => {
+      navigate(from, { replace: true });
     });
-    // formRef.current.reset();
   };
 
   const handleChange = ({ target }) => {
@@ -88,3 +85,6 @@ export const Login = () => {
     </>
   );
 };
+
+
+export default Login

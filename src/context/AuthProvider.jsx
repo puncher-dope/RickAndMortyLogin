@@ -7,30 +7,31 @@ export function useAuth(){
 }
 
 
-export const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(() => localStorage.getItem('user') || null)
+export const AuthProvider = ({ children }) => {
+const [user, setUser] = useState(() => {
+  const storedUser = localStorage.getItem('user');
+  return storedUser ? String(storedUser) : null; // Явное преобразование в строку
+});
 
-    const signIn = (newUser, callBack) => {
-        setUser(newUser)
-        localStorage.setItem('user', newUser)
-        callBack()
-    }
-    const signOut = ( callBack) => {
-        setUser(null)
-        localStorage.removeItem('user')
-        callBack()
-    }
+const signIn = (newUser, callBack) => {
+  if (!newUser) {
+    console.error("Username is required");
+    return;
+  }
+  const userString = String(newUser);
+  setUser(userString);
+  localStorage.setItem('user', userString);
+  callBack();
+};
 
-    const value = {
-        user,
-        signIn,
-        signOut
-    }
+  const signOut = (callBack) => {
+    setUser(null);
+    localStorage.removeItem('user');
+    callBack();
+  };
 
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+  const value = { user, signIn, signOut };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
