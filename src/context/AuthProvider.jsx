@@ -13,15 +13,15 @@ const [user, setUser] = useState(() => {
   return storedUser ? String(storedUser) : null; // Явное преобразование в строку
 });
 
-const signIn = (newUser, callBack) => {
+const signIn = (newUser, callback) => {
   if (!newUser) {
     console.error("Username is required");
     return;
   }
-  const userString = String(newUser);
+  const userString = JSON.stringify(newUser);
   setUser(userString);
   localStorage.setItem('user', userString);
-  callBack();
+  callback();
 };
 
   const signOut = (callBack) => {
